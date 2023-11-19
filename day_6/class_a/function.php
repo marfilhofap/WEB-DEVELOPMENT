@@ -8,7 +8,7 @@
 // echo strtolower($dadus_orijinal); // Output: hello, world!
 // echo strtoupper($dadus_orijinal); // Output: HELLO, WORLD!
 // echo ucfirst($dadus_orijinal); // Output: Hello, world!
-
+ 
 
 // -- Array Functions:
 // $myArray = [1, 2, 3, 4, 5];
@@ -40,12 +40,39 @@
 // echo date('d-m-Y', $timestamp); // Output: Next Sunday's date
 
 // File System Functions:
-$content = file_get_contents('example.txt');
-// echo $content;
+// $naran_file = "ezemplu.txt";
+// $file = fopen($naran_file, "w"); 
+// if($file){
 
-$data = 'New content';
-$a = file_put_contents('example.txt', $data);
+//     fwrite($file, "Hello FDSL");
 
-echo $a;
+//     fclose($file);
+
+//     echo "File $naran_file konsege kria";
+
+// } else {
+//     echo "File $naran_file lakonsege kria";
+// }
+
+$content = file_get_contents('ezemplu.txt');
+$a = unserialize($content);
+
+foreach($a as $x){
+    echo $x['naran'];
+}
+
+// $array_data = [
+//     [
+//         'naran' => 'Lia',
+//         'tinan' => 19,
+//         'hela_faatin' => 'Caicoli'
+//     ]
+//     ];
+
+// $array_ba_string = serialize($array_data);
+
+// // // $data = 'Koko fali';
+// $a = file_put_contents('ezemplu.txt', $array_ba_string);
+
 
 ?>
