@@ -1,5 +1,16 @@
 <?php
 include('function.php');
+
+if(isset($_POST['submit'])){
+
+    $naran_estudante = $_POST['naran_estudante'];
+    $sexo = $_POST['sexo'];
+    $data_moris = $_POST['data_moris'];
+
+    $rejultado = insert_estudante($naran_estudante, $sexo, $data_moris);
+
+}
+
 $dados = select_table('t_estudante order by naran_estudante ASC');
 ?>
 
@@ -39,7 +50,7 @@ $dados = select_table('t_estudante order by naran_estudante ASC');
                     <tr>
                         <td><?= $no++?></td>
                         <td><?= $a['naran_estudante']?></td>
-                        <td><?= $a['sexo']?></td>
+                        <td><?= $a['sexo'] == 'M' ? 'Mane' : 'Feto'?></td>
                         <td><?= $a['data_moris']?></td>
                     </tr>
                 <?php endforeach;?>
@@ -47,7 +58,6 @@ $dados = select_table('t_estudante order by naran_estudante ASC');
         </table>
 
     <?php }
-    
     if(isset($_GET['insert']) && $_GET['insert'] == 'true'){
     ?>
 
@@ -57,11 +67,11 @@ $dados = select_table('t_estudante order by naran_estudante ASC');
             <ul>
                 <li>
                     <label for="naran_estudante">Naran Estudante : </label>
-                    <input type="text" name="naran_estudante" id="naran_estudante">
+                    <input type="text" name="naran_estudante" id="naran_estudante" required>
                 </li>
                 <li>
-                    <label for="naran_estudante">Sexo : </label>
-                    <select name="" id="">
+                    <label for="sexo">Sexo : </label>
+                    <select name="sexo" id="sexo">
                         <option value="" selected hidden>- hili sexo -</option>
                         <option value="M">Mane</option>
                         <option value="F">Feto</option>
@@ -69,7 +79,7 @@ $dados = select_table('t_estudante order by naran_estudante ASC');
                 </li>
                 <li>
                     <label for="data_moris">Data Moris : </label>
-                    <input type="date" name="data_moris" id="data_moris">
+                    <input type="date" name="data_moris" id="data_moris" required>
                 </li>
                 <li>
                     <button type="submit" name="submit">Save</button>

@@ -15,4 +15,14 @@ function select_table($naran_table){
     return $rejultado;
 
 }
+
+function insert_estudante($naran_estudante, $sexo, $data_moris){
+    global $kon;
+
+    $sql = "INSERT INTO t_estudante(naran_estudante, sexo, data_moris) VALUES('$naran_estudante', '$sexo', '$data_moris')";
+    // Prepare no Execute
+    $dados = $kon->prepare($sql);
+    $dados->execute();
+
+}
 ?>
