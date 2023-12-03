@@ -83,6 +83,7 @@ $dados = select_table('t_estudante order by naran_estudante ASC');
                 </li>
                 <li>
                     <button type="submit" name="submit">Save</button>
+                    <button><a href="index.php">Kansela</a></button>
                 </li>
             </ul>
 
