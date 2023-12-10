@@ -33,6 +33,7 @@ if (isset($_POST['gravar'])) {
             <thead>
                 <td>No</td>
                 <td>Materia</td>
+                <td>Asaun</td>
             </thead>
             <tbody>
                 <?php
@@ -42,6 +43,7 @@ if (isset($_POST['gravar'])) {
                     <tr>
                         <td><?= $no++ ?></td>
                         <td><?= $a['materia'] ?></td>
+                        <td>Edit Delete</td>
                     </tr>
                 <?php } ?>
             </tbody>

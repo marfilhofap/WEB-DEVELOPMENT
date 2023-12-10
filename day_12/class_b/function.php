@@ -37,3 +37,14 @@ function insert_materia($materia)
     $sql = $kon->prepare($query);
     $sql->execute();
 }
+
+function edit_estudante($id_estudante, $naran_estudante, $sexo, $data_moris)
+{
+    global $kon;
+
+    $query = "UPDATE t_estudante SET naran_estudante='$naran_estudante', 
+    sexo='$sexo', data_moris ='$data_moris'
+    WHERE id_estudante = '$id_estudante'";
+    $sql = $kon->prepare($query);
+    $sql->execute();
+}
