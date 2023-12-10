@@ -1,0 +1,14 @@
+{
+	"PHP Tag": {
+		"prefix": "php",
+		"body": "<?php $1 ?>"
+	},
+	"Inline Echo": {
+		"prefix": "phpp",
+		"body": "<?= $$1;?>"
+	},
+	"Label and Input": {
+		"prefix": "linp",
+		"body": "<label for=\"$1\">$1:</label><input type=\"text\" name=\"$1\" id=\"$1\">"
+	}
+}
