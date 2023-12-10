@@ -30,7 +30,6 @@ if (isset($_GET['delete_id'])) {
 
 $dados = select_table('t_estudante order by naran_estudante ASC');
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
