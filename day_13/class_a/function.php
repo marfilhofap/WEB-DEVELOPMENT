@@ -45,3 +45,27 @@ function edit_materia($id, $materia)
     $dados = $kon->prepare($sql);
     $dados->execute();
 }
+
+function delete($naran_table, $p_key, $value)
+{
+    global $kon;
+    $sql = "DELETE FROM $naran_table WHERE $p_key = '$value'";
+    $dados = $kon->prepare($sql);
+    $dados->execute();
+}
+
+function insert_aula($id_estudante, $id_materia)
+{
+    global $kon;
+    $sql = "INSERT INTO t_aula(id_estudante, id_materia) VALUES('$id_estudante', '$id_materia')";
+    $dados = $kon->prepare($sql);
+    $dados->execute();
+}
+
+function edit_aula($id_aula, $id_estudante, $id_materia)
+{
+    global $kon;
+    $sql = "UPDATE t_aula SET id_estudante='$id_estudante', id_materia='$id_materia' WHERE id_aula='$id_aula'";
+    $dados = $kon->prepare($sql);
+    $dados->execute();
+}

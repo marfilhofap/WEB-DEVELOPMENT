@@ -1,13 +1,23 @@
 <?php
 include('function.php');
 $no = 1;
-$dados = sel_table('v_aula');
+$dados = sel_table('v_aula order by naran_estudante');
 
 if (isset($_POST['insert'])) {
     $id_estudante = $_POST['id_estudante'];
     $id_materia = $_POST['id_materia'];
 
     $resultado = insert_aula($id_estudante, $id_materia);
+    header('Location: aula.php');
+}
+
+if (isset($_POST['edit_aula'])) {
+    $id_aula = $_POST['id_aula'];
+    $id_estudante = $_POST['id_estudante'];
+    $id_materia = $_POST['id_materia'];
+
+    $resultado = edit_aula($id_aula, $id_estudante, $id_materia);
+
     header('Location: aula.php');
 }
 ?>
@@ -27,7 +37,6 @@ if (isset($_POST['insert'])) {
 
         <h1>Estudante nia Materia</h1>
         <p><a href="aula.php?insert=true">Insert</a></p>
-
         <table border="1">
             <thead>
                 <td>No</td>
@@ -105,6 +114,7 @@ if (isset($_POST['insert'])) {
             <h1>Edit Estudante nia materia</h1>
 
             <form action="aula.php" method="post">
+                <input type="text" name="id_aula" class="id_aula" value="<?= $id_aula ?>" hidden>
                 <ul>
                     <li>
                         <label for="naran_estudante">Naran Estudante:</label>
@@ -138,7 +148,7 @@ if (isset($_POST['insert'])) {
                         </select>
                     </li>
                     <li>
-                        <button type="submit" name="insert">save</button>
+                        <button type="submit" name="edit_aula">save</button>
                         <button><a href="aula.php">Kansela</a></button>
                     </li>
                 </ul>
