@@ -77,8 +77,7 @@ if (isset($_POST['edit_aula'])) {
                         <option value="" selected hidden>- Hili estudante -</option>
                         <?php
                         $estudante = sel_table('t_estudante order by naran_estudante');
-                        foreach ($estudante as $a) {
-                        ?>
+                        foreach ($estudante as $a) { ?>
                             <option value="<?= $a['id_estudante']; ?>"><?= $a['naran_estudante']; ?></option>
                         <?php } ?>
                     </select>
@@ -113,7 +112,7 @@ if (isset($_POST['edit_aula'])) {
             <h1>Edit Estudante nia materia</h1>
 
             <form action="aula.php" method="post">
-                <input type="text" name="id_aula" class="id_aula" value="<?= $id_aula ?>" hidden>
+                <input type="text" name="id_aula" class="id_aula" value="<?= $b['id_aula'] ?>" hidden>
                 <ul>
                     <li>
                         <label for="naran_estudante">Naran Estudante:</label>
@@ -122,9 +121,6 @@ if (isset($_POST['edit_aula'])) {
                             <?php
                             $estudante = sel_table('t_estudante order by naran_estudante');
                             foreach ($estudante as $a) {
-
-                                // $selected = $a['id_estudante'] == $b['id_estudante'] ? 'selected' : '';
-                                // echo "<option value=" . $a['id_estudante'] . " $selected>" . $a['naran_estudante'] . "</option>";
 
                                 if ($a['id_estudante'] == $b['id_estudante']) {
                                     echo "<option value=" . $a['id_estudante'] . " selected>" . $a['naran_estudante'] . "</option>";
