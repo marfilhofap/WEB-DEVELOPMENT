@@ -17,7 +17,6 @@ if (isset($_POST['edit_aula'])) {
     $id_materia = $_POST['id_materia'];
 
     $resultado = edit_aula($id_aula, $id_estudante, $id_materia);
-
     header('Location: aula.php');
 }
 ?>
@@ -123,6 +122,9 @@ if (isset($_POST['edit_aula'])) {
                             <?php
                             $estudante = sel_table('t_estudante order by naran_estudante');
                             foreach ($estudante as $a) {
+
+                                // $selected = $a['id_estudante'] == $b['id_estudante'] ? 'selected' : '';
+                                // echo "<option value=" . $a['id_estudante'] . " $selected>" . $a['naran_estudante'] . "</option>";
 
                                 if ($a['id_estudante'] == $b['id_estudante']) {
                                     echo "<option value=" . $a['id_estudante'] . " selected>" . $a['naran_estudante'] . "</option>";
