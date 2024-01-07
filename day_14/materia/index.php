@@ -20,6 +20,11 @@ include('function.php');
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="bootstrap-5.0.2-dist/css/bootstrap.min.css">
+
+    <!-- Datatable -->
+    <link rel="stylesheet" href="bootstrap-5.0.2-dist/css/dataTables.bootstrap5.min.css">
+
+    <!-- Fontawesome -->
     <link rel="stylesheet" href="fontawesome-free-6.5.1-web/css/fontawesome.css">
     <link rel="stylesheet" href="fontawesome-free-6.5.1-web/css/brands.css">
     <link rel="stylesheet" href="fontawesome-free-6.5.1-web/css/solid.css">
@@ -42,6 +47,12 @@ include('function.php');
 
     <!-- Bootstrap Popper -->
     <script src="bootstrap-5.0.2-dist/js/popper.min.js"></script>
+
+    <!-- Datatable -->
+    <script src="bootstrap-5.0.2-dist/js/dt/dataTables.bootstrap5.min.js"></script>
+    <script src="bootstrap-5.0.2-dist/js/dt/jquery-3.7.0.js"></script>
+    <script src="bootstrap-5.0.2-dist/js/dt/jquery.dataTables.min.js"></script>
+    <script src="bootstrap-5.0.2-dist/js/dt/datatable.js"></script>
 
 </body>
 

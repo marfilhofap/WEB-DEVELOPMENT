@@ -14,7 +14,7 @@ $dados = sel_table('t_estudante order by naran_estudante ASC ');
     </div>
 
     <div>
-        <table class="table table-hover">
+        <table id="dt_estudante" class="table table-hover">
             <thead>
                 <tr>
                     <td>No</td>
@@ -28,7 +28,10 @@ $dados = sel_table('t_estudante order by naran_estudante ASC ');
                 <?php foreach ($dados as $a) : ?>
                     <tr>
                         <td><?= $no++ ?></td>
-                        <td><?= $a['naran_estudante'] ?></td>
+                        <td><a style="text-decoration: none;" href="?p=aula&id_estudante=<?= $a['id_estudante'] ?>">
+                                <?= $a['naran_estudante'] ?>
+                            </a>
+                        </td>
                         <td><?= $a['sexo'] ?></td>
                         <td><?= $a['data_moris'] ?></td>
                         <td>

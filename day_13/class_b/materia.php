@@ -35,92 +35,117 @@ if (isset($_GET['delete_materia'])) {
 
 <head>
     <title>CRUD</title>
+    <link rel="stylesheet" href="bootstrap-5.0.2-dist/css/bootstrap.min.css">
 </head>
 
 <body>
 
-    <?php if (!isset($_GET['insert']) && (!isset($_GET['edit_materia']))) { ?>
+    <div class="container">
 
-        <h1>Lista Materia</h1>
+        <h1>BEMVINDO</h1>
 
-        <p><a href="index.php">Lista Estudante</a></p>
-        <p><a href="materia.php?insert=true">Insert</a></p>
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link" href="index.php">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="materia.php">Materia</a>
+            </li>
+        </ul>
 
-        <table border="1">
-            <thead>
-                <tr>
-                    <td>No</td>
-                    <td>Materia</td>
-                    <td>Asaun</td>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                $no = 1;
-                foreach ($dados as $a) {
-                ?>
+        <?php if (!isset($_GET['insert']) && (!isset($_GET['edit_materia']))) { ?>
+
+            <div class="alert alert-info d-flex mt-2">
+                <div>
+                    <h3>Dados Materia</h3>
+                </div>
+                <div class="ms-auto">
+                    <a class="btn btn-primary" href="materia.php?insert=true">Insert</a>
+                </div>
+            </div>
+
+            <table class="table table-hover">
+                <thead>
                     <tr>
-                        <td><?= $no++ ?></td>
-                        <td><?= $a['materia'] ?></td>
-                        <td>
-                            <a href="materia.php?edit_materia=<?= $a['id_materia']; ?>">Edit</a>
-                            <a href="materia.php?delete_materia=<?= $a['id_materia']; ?>">Delete</a>
-                        </td>
+                        <td>No</td>
+                        <td>Materia</td>
+                        <td>Asaun</td>
                     </tr>
-                <?php } ?>
-            </tbody>
-        </table>
-
-    <?php
-    }
-    if (isset($_GET['insert']) && $_GET['insert'] == 'true') {
-    ?>
-
-        <h2>Insert dados Materia</h2>
-        <form action="materia.php" method="post">
-            <ul>
-                <li>
-                    <label for="materia">Materia:</label>
-                    <input type="text" name="materia" id="materia" required>
-                </li>
-
-                <li>
-                    <button type="submit" name="gravar">Save</button>
-                    <button><a href="materia.php">Kansela</a></button>
-                </li>
-            </ul>
-        </form>
+                </thead>
+                <tbody>
+                    <?php
+                    $no = 1;
+                    foreach ($dados as $a) {
+                    ?>
+                        <tr>
+                            <td><?= $no++ ?></td>
+                            <td><?= $a['materia'] ?></td>
+                            <td>
+                                <a class="btn btn-warning" href="materia.php?edit_materia=<?= $a['id_materia']; ?>">Edit</a>
+                                <a class="btn btn-danger" href="materia.php?delete_materia=<?= $a['id_materia']; ?>">Delete</a>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
 
         <?php
-    }
-
-    if (isset($_GET['edit_materia'])) {
-        $id_materia = $_GET['edit_materia'];
-        $dados_materia = select_tabela("t_materia WHERE id_materia='$id_materia'");
-
-        foreach ($dados_materia as $loop) :
+        }
+        if (isset($_GET['insert']) && $_GET['insert'] == 'true') {
         ?>
 
-            <h2>Edit dados Materia</h2>
+            <div class="alert alert-info d-flex mt-2">
+                <h3>Insert dados Materia</h3>
+            </div>
+
             <form action="materia.php" method="post">
-                <input type="text" name="id_materia" value="<?= $id_materia; ?>" hidden>
                 <ul>
                     <li>
                         <label for="materia">Materia:</label>
-                        <input type="text" name="materia" id="materia" value="<?= $loop['materia']; ?>" required>
+                        <input type="text" name="materia" id="materia" required>
                     </li>
+
                     <li>
-                        <button type="submit" name="edit_materia">Save</button>
+                        <button type="submit" name="gravar">Save</button>
                         <button><a href="materia.php">Kansela</a></button>
                     </li>
                 </ul>
             </form>
 
-    <?php
-        endforeach;
-    }
-    ?>
+            <?php
+        }
 
+        if (isset($_GET['edit_materia'])) {
+            $id_materia = $_GET['edit_materia'];
+            $dados_materia = select_tabela("t_materia WHERE id_materia='$id_materia'");
+
+            foreach ($dados_materia as $loop) :
+            ?>
+
+                <div class="alert alert-info d-flex mt-2">
+                    <h3>Edit dados Materia</h3>
+                </div>
+
+                <form action="materia.php" method="post">
+                    <input type="text" name="id_materia" value="<?= $id_materia; ?>" hidden>
+                    <ul>
+                        <li>
+                            <label for="materia">Materia:</label>
+                            <input type="text" name="materia" id="materia" value="<?= $loop['materia']; ?>" required>
+                        </li>
+                        <li>
+                            <button type="submit" name="edit_materia">Save</button>
+                            <button><a href="materia.php">Kansela</a></button>
+                        </li>
+                    </ul>
+                </form>
+
+        <?php
+            endforeach;
+        }
+        ?>
+
+    </div>
 </body>
 
 </html>

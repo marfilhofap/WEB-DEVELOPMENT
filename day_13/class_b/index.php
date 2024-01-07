@@ -9,7 +9,6 @@ if (isset($_POST['gravar'])) {
         $data_moris = $_POST['data_moris'];
 
         $rejultadu = insert_estudante($naran_estudante, $sexo, $data_moris);
-        header('Location: index.php');
     }
 }
 
@@ -38,19 +37,36 @@ if (isset($_GET['delete_estudante'])) {
 
 <head>
     <title>CRUD</title>
+
     <link rel="stylesheet" href="bootstrap-5.0.2-dist/css/bootstrap.min.css">
+
 </head>
 
 <body>
 
     <div class="container">
 
+        <h1>BEMVINDO</h1>
+
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link active" href="index.php">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="materia.php">Materia</a>
+            </li>
+        </ul>
 
         <?php if (!isset($_GET['insert']) && !isset($_GET['edit'])) { ?>
-            <h1>Lista Estudante</h1>
 
-            <p><a href="materia.php">Lista Materia</a></p>
-            <p><a class="btn btn-primary" href="index.php?insert=true">Insert</a></p>
+            <div class="alert alert-info d-flex mt-2">
+                <div>
+                    <h3>Dados Estudante</h3>
+                </div>
+                <div class="ms-auto">
+                    <a class="btn btn-primary" href="index.php?insert=true">Insert</a>
+                </div>
+            </div>
 
             <table class="table table-hover">
                 <thead>
@@ -84,7 +100,11 @@ if (isset($_GET['delete_estudante'])) {
         if (isset($_GET['insert']) && $_GET['insert'] == 'true') {
         ?>
 
-            <h2>Insert dados Estudante</h2>
+
+            <div class="alert alert-info d-flex mt-2">
+                <h3>Insert dados Estudante</h3>
+            </div>
+
             <form action="index.php" method="post">
                 <ul>
                     <li>
@@ -122,7 +142,10 @@ if (isset($_GET['delete_estudante'])) {
             foreach ($dados_estudante as $a) {
             ?>
 
-                <h2>Edit dados Estudante</h2>
+                <div class="alert alert-info d-flex mt-2">
+                    <h3>Edit dados Estudante</h3>
+                </div>
+
                 <form action="index.php" method="post">
                     <input type="text" name="id_estudante" value="<?= $a['id_estudante']; ?>" hidden>
                     <ul>
@@ -159,7 +182,6 @@ if (isset($_GET['delete_estudante'])) {
         } ?>
 
     </div>
-
 
 </body>
 

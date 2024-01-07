@@ -22,10 +22,21 @@ function insert_estudante($naran_estudante, $sexo, $data_moris)
 {
     global $kon;
 
-    $query = "INSERT INTO t_estudante(naran_estudante, sexo, data_moris) 
-    VALUES ('$naran_estudante', '$sexo', '$data_moris')";
-    $sql = $kon->prepare($query);
-    $sql->execute();
+    $query = "SELECT naran_estudante FROM t_estudante WHERE naran_estudante = '$naran_estudante'";
+    $sql1 = $kon->prepare($query);
+    $sql1->execute();
+    $check = $sql1->fetchAll(PDO::FETCH_ASSOC);
+
+    if (count($check) > 0) {
+        header('Location: index.php?err=1');
+    } else {
+        $query = "INSERT INTO t_estudante(naran_estudante, sexo, data_moris) 
+        VALUES ('$naran_estudante', '$sexo', '$data_moris')";
+        $sql = $kon->prepare($query);
+        $sql->execute();
+
+        header('Location: index.php');
+    }
 }
 
 function insert_materia($materia)

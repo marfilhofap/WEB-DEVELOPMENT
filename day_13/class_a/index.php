@@ -38,17 +38,36 @@ $dados = sel_table('t_estudante order by naran_estudante ASC ');
     <title>CRUD</title>
 
     <link rel="stylesheet" href="bootstrap-5.0.2-dist/css/bootstrap.min.css">
+
 </head>
 
 <body>
 
     <div class="container">
 
+        <ul class="nav nav-pills m-2">
+            <li class="nav-item">
+                <a class="nav-link active" href="index.php">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="materia.php">Materia</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="aula.php">Aula</a>
+            </li>
+        </ul>
 
         <?php if (!isset($_GET['insert']) && !isset($_GET['edit_dados'])) { ?>
-            <h1>Dadus Estudante</h1>
-            <p><a href="materia.php">Dadus Materia</a></p>
-            <p><a href="index.php?insert=true">Insert</a></p>
+
+            <div class="alert alert-info d-flex m-2">
+                <div>
+                    <h3>Dadus Estudante</h3>
+                </div>
+                <div class="ms-auto">
+                    <a class="btn btn-primary" href="index.php?insert=true">Insert</a>
+                </div>
+            </div>
+
 
             <table class="table table-hover">
                 <thead>
@@ -66,8 +85,8 @@ $dados = sel_table('t_estudante order by naran_estudante ASC ');
                             <td><?= $a['sexo'] ?></td>
                             <td><?= $a['data_moris'] ?></td>
                             <td>
-                                <a class="btn btn-danger" href="index.php?edit_dados=<?= $a['id_estudante'] ?>">Edit</a>
-                                <a class="btn btn-warning" href="index.php?delete=<?= $a['id_estudante']; ?>">Delete</a>
+                                <a class="btn btn-warning" href="index.php?edit_dados=<?= $a['id_estudante'] ?>">Edit</a>
+                                <a class="btn btn-danger" href="index.php?delete=<?= $a['id_estudante']; ?>">Delete</a>
                             </td>
                         </tr>
                     <?php endforeach ?>
@@ -78,31 +97,39 @@ $dados = sel_table('t_estudante order by naran_estudante ASC ');
         }
         if (isset($_GET['insert']) && $_GET['insert'] == 'true') {
         ?>
-            <h1>Insert dadus Estudante</h1>
+            <div class="alert alert-info d-flex m-2">
+                <div>
+                    <h3>Insert Dadus Estudante</h3>
+                </div>
+            </div>
 
             <form action="index.php" method="post">
-                <ul>
-                    <li>
-                        <label for="naran_estudante">Naran Estudante:</label>
-                        <input type="text" name="naran_estudante" id="naran_estudante" required>
-                    </li>
-                    <li>
-                        <label for="naran_estudante">Sexo:</label>
-                        <select name="sexo" id="sexo">
+
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label for="naran_estudante" class="form-label">Naran Estudante:</label>
+                        <input class="form-control" type="text" name="naran_estudante" id="naran_estudante" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="naran_estudante" class="form-label">Sexo:</label>
+                        <select class="form-control" name="sexo" id="sexo">
                             <option value="" selected hidden>- Hili Sexo -</option>
                             <option value="M">Mane</option>
                             <option value="F">Feto</option>
                         </select>
-                    </li>
-                    <li>
-                        <label for="data_moris">Data Moris:</label>
-                        <input type="date" name="data_moris" id="data_moris" required>
-                    </li>
-                    <li>
-                        <button type="submit" name="aumenta">Gravar</button>
-                        <button><a href="index.php">Kansela</a></button>
-                    </li>
-                </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="data_moris" class="form-label">Data Moris:</label>
+                        <input class="form-control" type="date" name="data_moris" id="data_moris" required>
+                    </div>
+                </div>
+                <div class="row mt-3 justify-content-center">
+                    <div class="col-md-2">
+                        <button class="btn btn-primary" type="submit" name="aumenta">Gravar</button>
+                        <a class="btn btn-secondary" href="index.php">Kansela</a>
+                    </div>
+                </div>
+
             </form>
             <?php
         }
@@ -115,20 +142,25 @@ $dados = sel_table('t_estudante order by naran_estudante ASC ');
             foreach ($dados as $a) :
             ?>
 
-                <h1>Edit Dados Estudante</h1>
+                <div class="alert alert-info d-flex m-2">
+                    <div>
+                        <h3>Edit Dadus Estudante</h3>
+                    </div>
+                </div>
 
                 <form action="index.php" method="post">
                     <!-- Hidden -->
                     <input type="text" name="id_estudante" value="<?= $a['id_estudante'] ?>" hidden>
                     <!-- /Hidden -->
-                    <ul>
-                        <li>
-                            <label for="naran_estudante">Naran Estudante:</label>
-                            <input type="text" name="naran_estudante" id="naran_estudante" value="<?= $a['naran_estudante'] ?>">
-                        </li>
-                        <li>
-                            <label for="naran_estudante">Sexo:</label>
-                            <select name="sexo" id="sexo">
+
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label for="naran_estudante" class="form-label">Naran Estudante:</label>
+                            <input class="form-control" type="text" name="naran_estudante" id="naran_estudante" value="<?= $a['naran_estudante'] ?>">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="naran_estudante" class="form-label">Sexo:</label>
+                            <select name="sexo" id="sexo" class="form-control">
                                 <?php
                                 if ($a['sexo'] == 'M') {
                                     echo '<option value="M" selected>Mane</option>
@@ -139,16 +171,20 @@ $dados = sel_table('t_estudante order by naran_estudante ASC ');
                                 }
                                 ?>
                             </select>
-                        </li>
-                        <li>
-                            <label for="data_moris">Data Moris:</label>
-                            <input type="date" name="data_moris" id="data_moris" required value="<?= $a['data_moris'] ?>">
-                        </li>
-                        <li>
-                            <button type="submit" name="edit">Edit</button>
-                            <button><a href="index.php">Kansela</a></button>
-                        </li>
-                    </ul>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="data_moris" class="form-label">Data Moris:</label>
+                            <input class="form-control" type="date" name="data_moris" id="data_moris" required value="<?= $a['data_moris'] ?>">
+                        </div>
+                    </div>
+
+                    <div class="row mt-3 justify-content-center">
+                        <div class="col-md-3">
+                            <button class="btn btn-primary" type="submit" name="edit">Edit</button>
+                            <a class="btn btn-secondary" href="index.php">Kansela</a>
+                        </div>
+                    </div>
+
                 </form>
 
         <?php
@@ -157,7 +193,6 @@ $dados = sel_table('t_estudante order by naran_estudante ASC ');
         ?>
 
     </div>
-
 </body>
 
 </html>

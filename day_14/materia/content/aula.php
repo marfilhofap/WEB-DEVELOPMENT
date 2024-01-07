@@ -1,6 +1,13 @@
 <?php
-$no = 1;
-$dados = sel_table('v_aula');
+if (isset($_GET['id_materia'])) {
+    $id_materia = $_GET['id_materia'];
+    $dados = sel_table("v_aula where id_materia='$id_materia'");
+} else if (isset($_GET['id_estudante'])) {
+    $id_estudante = $_GET['id_estudante'];
+    $dados = sel_table("v_aula where id_estudante='$id_estudante'");
+} else {
+    $dados = sel_table("v_aula");
+}
 ?>
 
 <div class="alert alert-success d-flex justify-content-center align-items-center">
@@ -24,6 +31,7 @@ $dados = sel_table('v_aula');
     </thead>
     <tbody>
         <?php
+        $no = 1;
         foreach ($dados as $a) {
         ?>
             <tr>

@@ -25,7 +25,10 @@ $dados = sel_table('t_materia order by materia ASC ');
             <?php foreach ($dados as $a) : ?>
                 <tr>
                     <td><?= $no++ ?></td>
-                    <td><?= $a['materia'] ?></td>
+                    <td><a style="text-decoration: none;" href="?p=aula&id_materia=<?= $a['id_materia'] ?>">
+                            <?= $a['materia'] ?>
+                        </a>
+                    </td>
                     <td><a class="btn btn-warning" href="materia.php?edit_dados=<?= $a['id_materia'] ?>">Edit</a>
                         <a class="btn btn-danger" href="materia.php?delete=<?= $a['id_materia'] ?>">Delete</a>
                     </td>
