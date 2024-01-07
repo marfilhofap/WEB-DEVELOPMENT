@@ -36,7 +36,9 @@ $dados = sel_table('t_estudante order by naran_estudante ASC ');
 
 <head>
     <title>CRUD</title>
+
     <link rel="stylesheet" href="bootstrap-5.0.2-dist/css/bootstrap.min.css">
+
 </head>
 
 <body>
@@ -44,9 +46,29 @@ $dados = sel_table('t_estudante order by naran_estudante ASC ');
     <div class="container">
 
         <?php if (!isset($_GET['insert']) && !isset($_GET['edit_dados'])) { ?>
-            <h1>Dadus Estudante</h1>
-            <p><a href="materia.php">Dadus Materia</a></p>
-            <p><a class="btn btn-primary" href="index.php?insert=true">Insert</a></p>
+            <h1>Bemvindo</h1>
+
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link active" href="index.php">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="materia.php">Materia</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="aula.php">Aula</a>
+                </li>
+            </ul>
+
+            <div class="alert alert-info d-flex mt-2">
+                <div>
+                    <h3>Dados estudante</h3>
+                </div>
+                <div class="ms-auto">
+                    <a class="btn btn-primary" href="index.php?insert=true">Insert</a>
+                </div>
+            </div>
+
 
             <table class="table table-hover">
                 <thead>
