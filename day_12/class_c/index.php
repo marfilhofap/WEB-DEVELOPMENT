@@ -43,6 +43,7 @@ $dados = sel_table('t_estudante order by naran_estudante ASC ');
         <h1>Dadus Estudante</h1>
         <p><a href="materia.php">Dadus Materia</a></p>
         <p><a href="index.php?insert=true">Insert</a></p>
+        <p><a href="logout.php">Logout</a></p>
 
         <table border="1">
             <thead>

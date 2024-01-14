@@ -22,22 +22,31 @@
                 <h3>Formulariu Login</h3>
                 <hr>
 
-                <div class="m-3">
-                    <label for="username" class="form-label">Username:</label>
-                    <input class="form-control" type="text" name="username" id="username" placeholder="hatama Username">
-                </div>
+                <form action="login_control.php" method="post">
+                    <div class="m-3">
+                        <label for="username" class="form-label">Username:</label>
+                        <input class="form-control" type="text" name="username" id="username" placeholder="hatama Username">
+                    </div>
 
-                <div class="m-3">
-                    <label for="password" class="form-label">password:</label>
-                    <input class="form-control" type="text" name="password" id="password" placeholder="hatama Password">
-                </div>
+                    <div class="m-3">
+                        <label for="password" class="form-label">Password:</label>
+                        <input class="form-control" type="text" name="password" id="password" placeholder="hatama Password">
+                    </div>
 
-                <div class="mt-5">
-                    <button class="btn btn-primary" type="submit">Login</button>
-                </div>
+                    <div class="mt-5">
+                        <button class="btn btn-primary" type="submit" name="login">Login</button>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
+
+    <footer class="bg-light pt-2 fixed-bottom">
+        <marquee behavior="alternative">
+            <p>SENOFA | copyright@<?= date('Y') ?></p>
+        </marquee>
+    </footer>
 
 
 
