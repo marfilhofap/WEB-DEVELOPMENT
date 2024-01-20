@@ -1,7 +1,7 @@
 <img src="imagem/header.jpg" alt="" class="img-fluid mx-auto" width="100%">
 <div class="container-fluid p-3 sticky-top" style="background-color: aliceblue;">
     <div class="container">
-        <ul class="nav nav-pills">
+        <ul class="nav nav-pills flex-column flex-sm-row">
             <li class="nav-item">
                 <a class="nav-link <?= !isset($_GET['p']) ? 'active' : ''; ?>" href="index.php">
                     <i class="fa-solid fa-home"></i> Home
@@ -22,7 +22,7 @@
                     <i class="fa-solid fa-school"></i> Aula
                 </a>
             </li>
-            <li class="nav-item dropdown ms-auto">
+            <li class="nav-item dropdown ms-auto d-flex">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">
                     <i class="fa-solid fa-user"></i>
                 </a>
