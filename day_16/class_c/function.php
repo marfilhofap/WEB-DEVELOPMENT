@@ -11,20 +11,20 @@ function sel_table($naran_table)
     return $dados->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function insert_estudante($naran_estudante, $sexo, $data_moris, $emis)
+function insert_estudante($naran_estudante, $sexo, $data_moris)
 {
     global $kon;
-    $sql = "INSERT INTO t_estudante(naran_estudante, sexo, data_moris, emis) 
-            VALUES('$naran_estudante', '$sexo', '$data_moris', '$emis')";
+    $sql = "INSERT INTO t_estudante(naran_estudante, sexo, data_moris) 
+            VALUES('$naran_estudante', '$sexo', '$data_moris')";
     $dados = $kon->prepare($sql);
     $dados->execute();
 }
 
-function edit_estudante($id, $naran_estudante, $sexo, $data_moris, $emis)
+function edit_estudante($id, $naran_estudante, $sexo, $data_moris)
 {
     global $kon;
     $sql = "UPDATE t_estudante SET naran_estudante='$naran_estudante',
-    sexo='$sexo', data_moris = '$data_moris', emis='$emis'
+    sexo='$sexo', data_moris = '$data_moris'
     WHERE id_estudante = '$id'";
     $dados = $kon->prepare($sql);
     $dados->execute();
@@ -62,10 +62,10 @@ function insert_aula($id_estudante, $id_materia)
     $dados->execute();
 }
 
-function edit_aula($id_aula, $id_estudante, $id_materia)
+function edit_aula($id_aula, $id_materia, $id_estudante)
 {
     global $kon;
-    $sql = "UPDATE t_aula SET id_estudante='$id_estudante', id_materia='$id_materia' WHERE id_aula='$id_aula'";
+    $sql = "UPDATE t_aula SET id_materia='$id_materia', id_estudante='$id_estudante' WHERE id_aula='$id_aula'";
     $dados = $kon->prepare($sql);
     $dados->execute();
 }

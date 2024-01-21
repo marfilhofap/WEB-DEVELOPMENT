@@ -1,9 +1,13 @@
 <?php
 session_start();
-
-if (!isset($_SESSION['emis'])) {
+if (!isset($_SESSION['emis']) && $_SESSION['user_level'] = 'admin') {
     header('Location: login.php');
-    exit;
+    exit();
+}
+
+if ($_SESSION['user_level'] != 'admin') {
+    header('Location: index.php');
+    exit();
 }
 
 include('function.php');
@@ -33,25 +37,46 @@ if (isset($_POST['edit'])) {
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRUD</title>
     <link rel="stylesheet" href="bootstrap-5.0.2-dist/css/bootstrap.min.css">
-
 </head>
 
 <body>
 
     <div class="container">
 
-        <?php include('menu.php') ?>
+        <div class="bg-primary p-4 text-light text-center">
+            <h1>Sistema Informasaun Eskola SENOFA</h1>
+            <p>Bemvindo <?= $_SESSION['naran_estudante'] ?></p>
+        </div>
+        <ul class="nav nav-pills m-2">
+            <li class="nav-item">
+                <a class="nav-link" href="index.php">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="utilijador.php">utilijador</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="aula.php">Aula</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="utilijador.php">Utilijador</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link bg-danger text-white" href="logout.php">logout</a>
+            </li>
+        </ul>
 
         <?php
         if (!isset($_GET['insert']) && !isset($_GET['edit_dados'])) {
-
         ?>
 
-            <div class="alert alert-info d-flex m-2">
+
+            <div class="alert alert-info d-flex mt-2">
                 <div>
-                    <h3>Dadus Utilijador</h3>
+                    <h3>Dados utilijador</h3>
                 </div>
                 <div class="ms-auto">
                     <a class="btn btn-primary" href="utilijador.php?insert=true">Insert</a>
@@ -61,7 +86,7 @@ if (isset($_POST['edit'])) {
             <table class="table table-hover">
                 <thead>
                     <td>No</td>
-                    <td>Naran Utilijador</td>
+                    <td>Naran Estudante</td>
                     <td>Emis</td>
                     <td>Asaun</td>
                 </thead>
@@ -71,7 +96,8 @@ if (isset($_POST['edit'])) {
                             <td><?= $no++ ?></td>
                             <td><?= $a['naran_estudante'] ?></td>
                             <td><?= $a['emis'] ?></td>
-                            <td><a class="btn btn-warning" href="utilijador.php?edit_dados=<?= $a['id_utilijador'] ?>">edit</a>
+                            <td>
+                                <a class="btn btn-warning" href="utilijador.php?edit_dados=<?= $a['id_utilijador'] ?>">edit</a>
                                 <a class="btn btn-danger" href="utilijador.php?delete_dados=<?= $a['id_utilijador'] ?>">Delete</a>
                             </td>
                         </tr>
@@ -85,35 +111,30 @@ if (isset($_POST['edit'])) {
         if (isset($_GET['insert']) && $_GET['insert'] == 'true') {
         ?>
 
-            <div class="alert alert-info d-flex m-2">
-                <div>
-                    <h3>Insert Dadus Utilijador</h3>
-                </div>
+            <div class="alert alert-primary d-flex mt-2">
+                <h3>Insert Dados Utilijador</h3>
             </div>
+
             <form action="utilijador.php" method="post">
 
-                <div class="row mt-4">
+                <div class="row">
                     <div class="col-md-8">
                         <label for="id_estudante" class="form-label">Naran Estudante:</label>
                         <select name="id_estudante" id="id_estudante" class="form-control">
+                            <option selected hidden>- Hili naran Estudante -</option>
                             <?php
-                            $estudante = sel_table('t_estudante order by naran_estudante');
-                            foreach ($estudante as $a) :
-
-                                echo '<option value="' . $a['id_estudante'] . '">' . $a['naran_estudante'] . '</option>';
-
-                            endforeach; ?>
-
-
+                            $dados_estudante = sel_table('t_estudante order by naran_estudante');
+                            foreach ($dados_estudante as $loop) :
+                            ?>
+                                <option value="<?= $loop['id_estudante']; ?>"><?= $loop['naran_estudante']; ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
-
                     <div class="col-md-4">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="text" name="password" id="password" class="form-control">
+                        <label for="password" class="form-label">Password:</label>
+                        <input type="password" name="password" id="password" class="form-control">
                     </div>
                 </div>
-
                 <div class="row mt-3 justify-content-center">
                     <div class="col-md-3">
                         <button class="btn btn-primary" type="submit" name="insert">Save</button>

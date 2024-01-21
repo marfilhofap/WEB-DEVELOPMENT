@@ -38,23 +38,7 @@ if (isset($_POST['edit'])) {
 
     <div class="container">
 
-        <ul class="nav nav-pills m-2">
-            <li class="nav-item">
-                <a class="nav-link" href="index.php">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="materia.php">Materia</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="aula.php">Aula</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="utilijador.php">Utilijador</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link bg-danger text-white" href="logout.php">Logout</a>
-            </li>
-        </ul>
+        <?php include('menu.php') ?>
 
         <?php
         if (!isset($_GET['insert']) && !isset($_GET['edit_dados'])) {
