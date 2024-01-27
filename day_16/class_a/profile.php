@@ -1,11 +1,5 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['emis'])) {
-    header('Location: login.php');
-    exit;
-}
-
+include('session_conf.php');
 include('function.php');
 
 $id_estudante = $_SESSION['id_estudante'];

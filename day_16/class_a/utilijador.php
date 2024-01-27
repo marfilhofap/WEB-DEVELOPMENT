@@ -1,11 +1,5 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['emis'])) {
-    header('Location: login.php');
-    exit;
-}
-
+include('session_conf.php');
 include('function.php');
 $no = 1;
 $dados = sel_table('v_utilijador order by naran_estudante ASC');
@@ -53,9 +47,11 @@ if (isset($_POST['edit'])) {
                 <div>
                     <h3>Dadus Utilijador</h3>
                 </div>
-                <div class="ms-auto">
-                    <a class="btn btn-primary" href="utilijador.php?insert=true">Insert</a>
-                </div>
+                <?php if ($admin == 'admin') : ?>
+                    <div class="ms-auto">
+                        <a class="btn btn-primary" href="utilijador.php?insert=true">Insert</a>
+                    </div>
+                <?php endif; ?>
             </div>
 
             <table class="table table-hover">
@@ -63,7 +59,9 @@ if (isset($_POST['edit'])) {
                     <td>No</td>
                     <td>Naran Utilijador</td>
                     <td>Emis</td>
-                    <td>Asaun</td>
+                    <?php if ($admin == 'admin') : ?>
+                        <td>Asaun</td>
+                    <?php endif; ?>
                 </thead>
                 <tbody>
                     <?php foreach ($dados as $a) : ?>
@@ -71,9 +69,11 @@ if (isset($_POST['edit'])) {
                             <td><?= $no++ ?></td>
                             <td><?= $a['naran_estudante'] ?></td>
                             <td><?= $a['emis'] ?></td>
-                            <td><a class="btn btn-warning" href="utilijador.php?edit_dados=<?= $a['id_utilijador'] ?>">edit</a>
-                                <a class="btn btn-danger" href="utilijador.php?delete_dados=<?= $a['id_utilijador'] ?>">Delete</a>
-                            </td>
+                            <?php if ($admin == 'admin') : ?>
+                                <td><a class="btn btn-warning" href="utilijador.php?edit_dados=<?= $a['id_utilijador'] ?>">edit</a>
+                                    <a class="btn btn-danger" href="utilijador.php?delete_dados=<?= $a['id_utilijador'] ?>">Delete</a>
+                                </td>
+                            <?php endif; ?>
                         </tr>
                     <?php endforeach ?>
                 </tbody>
@@ -82,7 +82,7 @@ if (isset($_POST['edit'])) {
         <?php
         }
 
-        if (isset($_GET['insert']) && $_GET['insert'] == 'true') {
+        if (isset($_GET['insert']) && $_GET['insert'] == 'true' && $admin == 'admin') {
         ?>
 
             <div class="alert alert-info d-flex m-2">
@@ -93,7 +93,7 @@ if (isset($_POST['edit'])) {
             <form action="utilijador.php" method="post">
 
                 <div class="row mt-4">
-                    <div class="col-md-8">
+                    <div class="col-md-6">
                         <label for="id_estudante" class="form-label">Naran Estudante:</label>
                         <select name="id_estudante" id="id_estudante" class="form-control">
                             <?php
@@ -108,9 +108,16 @@ if (isset($_POST['edit'])) {
                         </select>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="text" name="password" id="password" class="form-control">
+                        <input type="password" name="password" id="password" class="form-control">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="user_level" class="form-label">User Level:</label>
+                        <select name="user_level" id="user_level" class="form-control">
+                            <option value="user normal">User Normal</option>
+                            <option value="admin">Admin</option>
+                        </select>
                     </div>
                 </div>
 
@@ -125,7 +132,7 @@ if (isset($_POST['edit'])) {
 
             <?php
         }
-        if (isset($_GET['edit_dados'])) {
+        if (isset($_GET['edit_dados']) && $admin == 'admin') {
             $id = $_GET['edit_dados'];
 
             $dados = sel_table("t_utilijador WHERE id_utilijador='$id'");

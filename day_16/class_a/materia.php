@@ -1,11 +1,5 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['emis'])) {
-    header('Location: login.php');
-    exit;
-}
-
+include('session_conf.php');
 include('function.php');
 $no = 1;
 $dados = sel_table('t_materia order by materia ASC ');
@@ -49,25 +43,31 @@ if (isset($_POST['edit'])) {
                 <div>
                     <h3>Dadus Materia</h3>
                 </div>
-                <div class="ms-auto">
-                    <a class="btn btn-primary" href="materia.php?insert=true">Insert</a>
-                </div>
+                <?php if ($admin == 'admin') : ?>
+                    <div class="ms-auto">
+                        <a class="btn btn-primary" href="materia.php?insert=true">Insert</a>
+                    </div>
+                <?php endif; ?>
             </div>
 
             <table class="table table-hover">
                 <thead>
                     <td>No</td>
                     <td>Materia</td>
-                    <td>Asaun</td>
+                    <?php if ($admin == 'admin') : ?>
+                        <td>Asaun</td>
+                    <?php endif; ?>
                 </thead>
                 <tbody>
                     <?php foreach ($dados as $a) : ?>
                         <tr>
                             <td><?= $no++ ?></td>
                             <td><?= $a['materia'] ?></td>
-                            <td><a class="btn btn-warning" href="materia.php?edit_dados=<?= $a['id_materia'] ?>">edit</a>
-                                <a class="btn btn-danger" href="materia.php?delete_dados=<?= $a['id_materia'] ?>">Delete</a>
-                            </td>
+                            <?php if ($admin == 'admin') : ?>
+                                <td><a class="btn btn-warning" href="materia.php?edit_dados=<?= $a['id_materia'] ?>">edit</a>
+                                    <a class="btn btn-danger" href="materia.php?delete_dados=<?= $a['id_materia'] ?>">Delete</a>
+                                </td>
+                            <?php endif; ?>
                         </tr>
                     <?php endforeach ?>
                 </tbody>
@@ -76,7 +76,7 @@ if (isset($_POST['edit'])) {
         <?php
         }
 
-        if (isset($_GET['insert']) && $_GET['insert'] == 'true') {
+        if (isset($_GET['insert']) && $_GET['insert'] == 'true' && $admin == 'admin') {
         ?>
 
             <div class="alert alert-info d-flex m-2">
@@ -100,7 +100,7 @@ if (isset($_POST['edit'])) {
 
             <?php
         }
-        if (isset($_GET['edit_dados'])) {
+        if (isset($_GET['edit_dados']) && $admin == 'admin') {
             $id = $_GET['edit_dados'];
 
             $dados = sel_table("t_materia WHERE id_materia='$id'");

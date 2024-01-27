@@ -1,11 +1,5 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['emis'])) {
-    header('Location: login.php');
-    exit;
-}
-
+include('session_conf.php');
 include('function.php');
 $no = 1;
 $dados = sel_table('v_aula order by naran_estudante');
@@ -50,9 +44,11 @@ if (isset($_POST['edit_aula'])) {
                 <div>
                     <h3>Dadus Aula</h3>
                 </div>
-                <div class="ms-auto">
-                    <a class="btn btn-primary" href="aula.php?insert=true">Insert</a>
-                </div>
+                <?php if ($admin == 'admin') : ?>
+                    <div class="ms-auto">
+                        <a class="btn btn-primary" href="aula.php?insert=true">Insert</a>
+                    </div>
+                <?php endif; ?>
             </div>
 
             <table class="table table-hover">
@@ -61,7 +57,9 @@ if (isset($_POST['edit_aula'])) {
                     <td>Naran</td>
                     <td>Sexo</td>
                     <td>Materia</td>
-                    <td>Asaun</td>
+                    <?php if ($admin == 'admin') : ?>
+                        <td>Asaun</td>
+                    <?php endif; ?>
                 </thead>
                 <tbody>
                     <?php
@@ -72,10 +70,12 @@ if (isset($_POST['edit_aula'])) {
                             <td><?= $a['naran_estudante']; ?></td>
                             <td><?= $a['sexo']; ?></td>
                             <td><?= $a['materia']; ?></td>
-                            <td>
-                                <a class="btn btn-warning" href="aula.php?edit=<?= $a['id_aula']; ?>">Edit</a>
-                                <a class="btn btn-danger" href="aula.php?delete=<?= $a['id_aula']; ?>">Delete</a>
-                            </td>
+                            <?php if ($admin == 'admin') : ?>
+                                <td>
+                                    <a class="btn btn-warning" href="aula.php?edit=<?= $a['id_aula']; ?>">Edit</a>
+                                    <a class="btn btn-danger" href="aula.php?delete=<?= $a['id_aula']; ?>">Delete</a>
+                                </td>
+                            <?php endif; ?>
                         </tr>
                     <?php
                     }
@@ -85,7 +85,7 @@ if (isset($_POST['edit_aula'])) {
 
         <?php }
 
-        if (isset($_GET['insert']) && $_GET['insert'] == 'true') { ?>
+        if (isset($_GET['insert']) && $_GET['insert'] == 'true' && $admin == 'admin') { ?>
 
             <div class="alert alert-info d-flex m-2">
                 <div>
@@ -127,7 +127,7 @@ if (isset($_POST['edit_aula'])) {
             </form>
 
             <?php }
-        if (isset($_GET['edit']) && !empty($_GET['edit'])) {
+        if (isset($_GET['edit']) && !empty($_GET['edit']) && $admin == 'admin') {
 
             $id_aula = $_GET['edit'];
             $dados_aula = sel_table("t_aula where id_aula='$id_aula'");

@@ -11,6 +11,15 @@ function sel_table($naran_table)
     return $dados->fetchAll(PDO::FETCH_ASSOC);
 }
 
+function table($query)
+{
+    global $kon;
+    $sql = "$query";
+    $dados = $kon->prepare($sql);
+    $dados->execute();
+    return $dados->fetchAll(PDO::FETCH_ASSOC);
+}
+
 function insert_estudante($naran_estudante, $sexo, $data_moris, $emis)
 {
     global $kon;
