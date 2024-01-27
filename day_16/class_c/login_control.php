@@ -19,7 +19,8 @@ if (isset($_POST['login'])) {
             session_start();
             $_SESSION['emis'] = $check_utilijador[0]['emis'];
             $_SESSION['naran_estudante'] = $check_utilijador[0]['naran_estudante'];
-            $_SESSION['user_level'] = 'user_normal';
+            $_SESSION['id_estudante'] = $check_utilijador[0]['id_estudante'];
+            $_SESSION['user_level'] = $check_utilijador[0]['user_level'];
 
             header('Location: index.php');
         } else {

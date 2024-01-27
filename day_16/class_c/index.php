@@ -1,10 +1,5 @@
 <?php
-session_start();
-if (!isset($_SESSION['emis'])) {
-    header('Location: login.php');
-    exit();
-}
-
+include('session_cont.php');
 include('function.php');
 
 if (isset($_POST['aumenta'])) {
@@ -51,35 +46,9 @@ $dados = sel_table('t_estudante order by naran_estudante ASC ');
 
 <body>
 
-    <!-- 
-    Margin : Linha nia liur
-    Padding : Linha nia laran
- -->
-
     <div class="container">
 
-        <div class="bg-primary p-4 text-light text-center">
-            <h1>Sistema Informasaun Eskola SENOFA</h1>
-            <p>Bemvindo <?= $_SESSION['naran_estudante'] ?></p>
-        </div>
-
-        <ul class="nav nav-pills m-2">
-            <li class="nav-item">
-                <a class="nav-link active" href="index.php">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="materia.php">Materia</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="aula.php">Aula</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="utilijador.php">Utilijador</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link bg-danger text-white" href="logout.php">logout</a>
-            </li>
-        </ul>
+        <?php include('menu.php') ?>
 
         <?php if (!isset($_GET['insert']) && !isset($_GET['edit_dados'])) { ?>
 
@@ -87,9 +56,11 @@ $dados = sel_table('t_estudante order by naran_estudante ASC ');
                 <div>
                     <h3>Dados estudante</h3>
                 </div>
-                <div class="ms-auto">
-                    <a class="btn btn-primary" href="index.php?insert=true">Insert</a>
-                </div>
+                <?php if ($admin == 'admin') : ?>
+                    <div class="ms-auto">
+                        <a class="btn btn-primary" href="index.php?insert=true">Insert</a>
+                    </div>
+                <?php endif; ?>
             </div>
 
 
@@ -99,7 +70,9 @@ $dados = sel_table('t_estudante order by naran_estudante ASC ');
                     <td>Naran Estudante</td>
                     <td>Sexo</td>
                     <td>Data Moris</td>
-                    <td>Asaun</td>
+                    <?php if ($admin == 'admin') : ?>
+                        <td>Asaun</td>
+                    <?php endif; ?>
                 </thead>
                 <tbody>
                     <?php foreach ($dados as $a) : ?>
@@ -108,10 +81,12 @@ $dados = sel_table('t_estudante order by naran_estudante ASC ');
                             <td><?= $a['naran_estudante'] ?></td>
                             <td><?= $a['sexo'] ?></td>
                             <td><?= $a['data_moris'] ?></td>
-                            <td>
-                                <a class="btn btn-warning" href="index.php?edit_dados=<?= $a['id_estudante'] ?>">Edit</a>
-                                <a class="btn btn-danger" href="index.php?delete=<?= $a['id_estudante']; ?>">Delete</a>
-                            </td>
+                            <?php if ($admin == 'admin') : ?>
+                                <td>
+                                    <a class="btn btn-warning" href="index.php?edit_dados=<?= $a['id_estudante'] ?>">Edit</a>
+                                    <a class="btn btn-danger" href="index.php?delete=<?= $a['id_estudante']; ?>">Delete</a>
+                                </td>
+                            <?php endif; ?>
                         </tr>
                     <?php endforeach ?>
                 </tbody>
@@ -119,7 +94,7 @@ $dados = sel_table('t_estudante order by naran_estudante ASC ');
 
         <?php
         }
-        if (isset($_GET['insert']) && $_GET['insert'] == 'true') {
+        if (isset($_GET['insert']) && $_GET['insert'] == 'true' && $admin == 'admin') {
         ?>
             <div class="alert alert-primary d-flex mt-2">
                 <h3>Insert dadus Estudante</h3>

@@ -1,4 +1,5 @@
 <?php
+include('session_conf.php');
 include('function.php');
 $dados = select_tabela('t_estudante');
 
@@ -36,20 +37,7 @@ if (isset($_POST['edit'])) {
 
     <div class="container">
 
-        <h1 class="bg-primary p-5 text-center text-white">Bemvindo</h1>
-
-        <ul class="nav nav-pills m-2">
-            <li class="nav-item">
-                <a href="index.php" class="nav-link active">Home</a>
-            </li>
-            <li class="nav-item">
-                <a href="materia.php" class="nav-link">Materia</a>
-            </li>
-            <li class="nav-item">
-                <a href="logout.php" class="nav-link bg-danger text-white">Logout</a>
-            </li>
-        </ul>
-
+        <?php include('menu.php'); ?>
 
         <?php if (!isset($_GET['insert']) && !isset($_GET['edit'])) { ?>
 

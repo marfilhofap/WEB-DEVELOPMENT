@@ -1,10 +1,5 @@
 <?php
-session_start();
-if (!isset($_SESSION['emis'])) {
-    header('Location: login.php');
-    exit();
-}
-
+include('session_cont.php');
 include('function.php');
 $no = 1;
 $dados = sel_table('v_aula order by naran_estudante, materia');
@@ -50,27 +45,7 @@ if (isset($_GET['delete_aula'])) {
 
     <div class="container">
 
-        <div class="bg-primary p-4 text-light text-center">
-            <h1>Sistema Informasaun Eskola SENOFA</h1>
-            <p>Bemvindo <?= $_SESSION['naran_estudante'] ?></p>
-        </div>
-        <ul class="nav nav-pills m-2">
-            <li class="nav-item">
-                <a class="nav-link" href="index.php">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="materia.php">Materia</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="aula.php">Aula</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="utilijador.php">Utilijador</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link bg-danger text-white" href="logout.php">logout</a>
-            </li>
-        </ul>
+        <?php include('menu.php') ?>
 
         <?php if (!isset($_GET['insert']) && !isset($_GET['edit'])) { ?>
 

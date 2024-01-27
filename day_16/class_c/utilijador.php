@@ -1,15 +1,5 @@
 <?php
-session_start();
-if (!isset($_SESSION['emis']) && $_SESSION['user_level'] = 'admin') {
-    header('Location: login.php');
-    exit();
-}
-
-if ($_SESSION['user_level'] != 'admin') {
-    header('Location: index.php');
-    exit();
-}
-
+include('session_cont.php');
 include('function.php');
 $no = 1;
 $dados = sel_table('v_utilijador order by naran_estudante ASC');
@@ -32,6 +22,7 @@ if (isset($_POST['edit'])) {
     $resultado = edit_utilijador($id, $id_estudante, $password);
     header('Location: utilijador.php');
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,27 +38,7 @@ if (isset($_POST['edit'])) {
 
     <div class="container">
 
-        <div class="bg-primary p-4 text-light text-center">
-            <h1>Sistema Informasaun Eskola SENOFA</h1>
-            <p>Bemvindo <?= $_SESSION['naran_estudante'] ?></p>
-        </div>
-        <ul class="nav nav-pills m-2">
-            <li class="nav-item">
-                <a class="nav-link" href="index.php">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="utilijador.php">utilijador</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="aula.php">Aula</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="utilijador.php">Utilijador</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link bg-danger text-white" href="logout.php">logout</a>
-            </li>
-        </ul>
+        <?php include('menu.php') ?>
 
         <?php
         if (!isset($_GET['insert']) && !isset($_GET['edit_dados'])) {
@@ -88,6 +59,7 @@ if (isset($_POST['edit'])) {
                     <td>No</td>
                     <td>Naran Estudante</td>
                     <td>Emis</td>
+                    <td>User Level</td>
                     <td>Asaun</td>
                 </thead>
                 <tbody>
@@ -96,6 +68,7 @@ if (isset($_POST['edit'])) {
                             <td><?= $no++ ?></td>
                             <td><?= $a['naran_estudante'] ?></td>
                             <td><?= $a['emis'] ?></td>
+                            <td><?= $a['user_level'] ?></td>
                             <td>
                                 <a class="btn btn-warning" href="utilijador.php?edit_dados=<?= $a['id_utilijador'] ?>">edit</a>
                                 <a class="btn btn-danger" href="utilijador.php?delete_dados=<?= $a['id_utilijador'] ?>">Delete</a>
