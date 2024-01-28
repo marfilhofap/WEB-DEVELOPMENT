@@ -19,116 +19,107 @@ if (isset($_POST['edit'])) {
     header('Location: materia.php');
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <title>CRUD</title>
-    <link rel="stylesheet" href="bootstrap-5.0.2-dist/css/bootstrap.min.css">
+<?php include('header.php'); ?>
 
-</head>
+<div class="container">
 
-<body>
+    <?php include('menu.php') ?>
 
-    <div class="container">
+    <?php
+    if (!isset($_GET['insert']) && !isset($_GET['edit_dados'])) {
 
-        <?php include('menu.php') ?>
+    ?>
 
-        <?php
-        if (!isset($_GET['insert']) && !isset($_GET['edit_dados'])) {
-
-        ?>
-
-            <div class="alert alert-info d-flex m-2">
-                <div>
-                    <h3>Dadus Materia</h3>
+        <div class="alert alert-info d-flex m-2">
+            <div>
+                <h3>Dadus Materia</h3>
+            </div>
+            <?php if ($admin == 'admin') : ?>
+                <div class="ms-auto">
+                    <a class="btn btn-primary" href="materia.php?insert=true">Insert</a>
                 </div>
+            <?php endif; ?>
+        </div>
+
+        <table id="dt_materia" class="table table-hover">
+            <thead>
+                <td>No</td>
+                <td>Materia</td>
                 <?php if ($admin == 'admin') : ?>
-                    <div class="ms-auto">
-                        <a class="btn btn-primary" href="materia.php?insert=true">Insert</a>
-                    </div>
+                    <td>Asaun</td>
                 <?php endif; ?>
-            </div>
+            </thead>
+            <tbody>
+                <?php foreach ($dados as $a) : ?>
+                    <tr>
+                        <td><?= $no++ ?></td>
+                        <td><?= $a['materia'] ?></td>
+                        <?php if ($admin == 'admin') : ?>
+                            <td><a class="btn btn-warning" href="materia.php?edit_dados=<?= $a['id_materia'] ?>">edit</a>
+                                <a class="btn btn-danger" href="materia.php?delete_dados=<?= $a['id_materia'] ?>">Delete</a>
+                            </td>
+                        <?php endif; ?>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
 
-            <table class="table table-hover">
-                <thead>
-                    <td>No</td>
-                    <td>Materia</td>
-                    <?php if ($admin == 'admin') : ?>
-                        <td>Asaun</td>
-                    <?php endif; ?>
-                </thead>
-                <tbody>
-                    <?php foreach ($dados as $a) : ?>
-                        <tr>
-                            <td><?= $no++ ?></td>
-                            <td><?= $a['materia'] ?></td>
-                            <?php if ($admin == 'admin') : ?>
-                                <td><a class="btn btn-warning" href="materia.php?edit_dados=<?= $a['id_materia'] ?>">edit</a>
-                                    <a class="btn btn-danger" href="materia.php?delete_dados=<?= $a['id_materia'] ?>">Delete</a>
-                                </td>
-                            <?php endif; ?>
-                        </tr>
-                    <?php endforeach ?>
-                </tbody>
-            </table>
+    <?php
+    }
+
+    if (isset($_GET['insert']) && $_GET['insert'] == 'true' && $admin == 'admin') {
+    ?>
+
+        <div class="alert alert-info d-flex m-2">
+            <div>
+                <h3>Insert Dadus Materia</h3>
+            </div>
+        </div>
+        <form action="materia.php" method="post">
+
+            <ul>
+                <li>
+                    <label for="materia">Materia:</label>
+                    <input type="text" name="materia" id="materia">
+                </li>
+                <li>
+                    <button type="submit" name="insert">Save</button>
+                </li>
+            </ul>
+
+        </form>
 
         <?php
-        }
+    }
+    if (isset($_GET['edit_dados']) && $admin == 'admin') {
+        $id = $_GET['edit_dados'];
 
-        if (isset($_GET['insert']) && $_GET['insert'] == 'true' && $admin == 'admin') {
+        $dados = sel_table("t_materia WHERE id_materia='$id'");
+
+        foreach ($dados as $a) :
         ?>
 
-            <div class="alert alert-info d-flex m-2">
-                <div>
-                    <h3>Insert Dadus Materia</h3>
-                </div>
-            </div>
+            <h1>Edit Dados Materia</h1>
             <form action="materia.php" method="post">
 
                 <ul>
                     <li>
                         <label for="materia">Materia:</label>
-                        <input type="text" name="materia" id="materia">
+                        <input type="text" name="id_materia" value="<?= $id ?>" hidden>
+                        <input type="text" name="materia" id="materia" value="<?= $a['materia'] ?>">
                     </li>
                     <li>
-                        <button type="submit" name="insert">Save</button>
+                        <button type="submit" name="edit">Edit</button>
                     </li>
                 </ul>
 
             </form>
 
-            <?php
-        }
-        if (isset($_GET['edit_dados']) && $admin == 'admin') {
-            $id = $_GET['edit_dados'];
+    <?php
+        endforeach;
+    } ?>
 
-            $dados = sel_table("t_materia WHERE id_materia='$id'");
+</div>
 
-            foreach ($dados as $a) :
-            ?>
-
-                <h1>Edit Dados Materia</h1>
-                <form action="materia.php" method="post">
-
-                    <ul>
-                        <li>
-                            <label for="materia">Materia:</label>
-                            <input type="text" name="id_materia" value="<?= $id ?>" hidden>
-                            <input type="text" name="materia" id="materia" value="<?= $a['materia'] ?>">
-                        </li>
-                        <li>
-                            <button type="submit" name="edit">Edit</button>
-                        </li>
-                    </ul>
-
-                </form>
-
-        <?php
-            endforeach;
-        } ?>
-
-    </div>
-</body>
-
-</html>
+<?php include('footer.php'); ?>

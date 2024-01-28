@@ -22,78 +22,111 @@ if (isset($_POST['edit_aula'])) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+<?php include('header.php'); ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD</title>
-    <link rel="stylesheet" href="bootstrap-5.0.2-dist/css/bootstrap.min.css">
-</head>
+<div class="container">
 
-<body>
+    <?php include('menu.php') ?>
 
-    <div class="container">
+    <?php if (!isset($_GET['insert']) && !isset($_GET['edit'])) { ?>
 
-        <?php include('menu.php') ?>
-
-        <?php if (!isset($_GET['insert']) && !isset($_GET['edit'])) { ?>
-
-            <div class="alert alert-info d-flex m-2">
-                <div>
-                    <h3>Dadus Aula</h3>
-                </div>
-                <?php if ($admin == 'admin') : ?>
-                    <div class="ms-auto">
-                        <a class="btn btn-primary" href="aula.php?insert=true">Insert</a>
-                    </div>
-                <?php endif; ?>
+        <div class="alert alert-info d-flex m-2">
+            <div>
+                <h3>Dadus Aula</h3>
             </div>
+            <?php if ($admin == 'admin') : ?>
+                <div class="ms-auto">
+                    <a class="btn btn-primary" href="aula.php?insert=true">Insert</a>
+                </div>
+            <?php endif; ?>
+        </div>
 
-            <table class="table table-hover">
-                <thead>
-                    <td>No</td>
-                    <td>Naran</td>
-                    <td>Sexo</td>
-                    <td>Materia</td>
-                    <?php if ($admin == 'admin') : ?>
-                        <td>Asaun</td>
-                    <?php endif; ?>
-                </thead>
-                <tbody>
-                    <?php
-                    foreach ($dados as $a) {
-                    ?>
-                        <tr>
-                            <td><?= $no++; ?></td>
-                            <td><?= $a['naran_estudante']; ?></td>
-                            <td><?= $a['sexo']; ?></td>
-                            <td><?= $a['materia']; ?></td>
-                            <?php if ($admin == 'admin') : ?>
-                                <td>
-                                    <a class="btn btn-warning" href="aula.php?edit=<?= $a['id_aula']; ?>">Edit</a>
-                                    <a class="btn btn-danger" href="aula.php?delete=<?= $a['id_aula']; ?>">Delete</a>
-                                </td>
-                            <?php endif; ?>
-                        </tr>
-                    <?php
-                    }
-                    ?>
-                </tbody>
-            </table>
+        <table id="dt_aula" class="table table-hover">
+            <thead>
+                <td>No</td>
+                <td>Naran</td>
+                <td>Sexo</td>
+                <td>Materia</td>
+                <?php if ($admin == 'admin') : ?>
+                    <td>Asaun</td>
+                <?php endif; ?>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($dados as $a) {
+                ?>
+                    <tr>
+                        <td><?= $no++; ?></td>
+                        <td><?= $a['naran_estudante']; ?></td>
+                        <td><?= $a['sexo']; ?></td>
+                        <td><?= $a['materia']; ?></td>
+                        <?php if ($admin == 'admin') : ?>
+                            <td>
+                                <a class="btn btn-warning" href="aula.php?edit=<?= $a['id_aula']; ?>">Edit</a>
+                                <a class="btn btn-danger" href="aula.php?delete=<?= $a['id_aula']; ?>">Delete</a>
+                            </td>
+                        <?php endif; ?>
+                    </tr>
+                <?php
+                }
+                ?>
+            </tbody>
+        </table>
+
+    <?php }
+
+    if (isset($_GET['insert']) && $_GET['insert'] == 'true' && $admin == 'admin') { ?>
+
+        <div class="alert alert-info d-flex m-2">
+            <div>
+                <h3>Insert Dadus Aula</h3>
+            </div>
+        </div>
+
+        <form action="aula.php" method="post">
+            <ul>
+                <li>
+                    <label for="naran_estudante">Naran Estudante:</label>
+                    <select name="id_estudante" id="naran_estudante">
+                        <option value="" selected hidden>- Hili estudante -</option>
+                        <?php
+                        $estudante = sel_table('t_estudante order by naran_estudante');
+                        foreach ($estudante as $a) { ?>
+                            <option value="<?= $a['id_estudante']; ?>"><?= $a['naran_estudante']; ?></option>
+                        <?php } ?>
+                    </select>
+                </li>
+                <li>
+                    <label for="id_materia">Materia:</label>
+                    <select name="id_materia" id="id_materia">
+                        <option value="" selected hidden>- Hili Materia -</option>
+                        <?php
+                        $materia = sel_table('t_materia order by materia');
+                        foreach ($materia as $a) {
+                        ?>
+                            <option value="<?= $a['id_materia']; ?>"><?= $a['materia']; ?></option>
+                        <?php } ?>
+                    </select>
+                </li>
+                <li>
+                    <button type="submit" name="insert">save</button>
+                    <button><a href="aula.php">Kansela</a></button>
+                </li>
+            </ul>
+
+        </form>
 
         <?php }
+    if (isset($_GET['edit']) && !empty($_GET['edit']) && $admin == 'admin') {
 
-        if (isset($_GET['insert']) && $_GET['insert'] == 'true' && $admin == 'admin') { ?>
-
-            <div class="alert alert-info d-flex m-2">
-                <div>
-                    <h3>Insert Dadus Aula</h3>
-                </div>
-            </div>
+        $id_aula = $_GET['edit'];
+        $dados_aula = sel_table("t_aula where id_aula='$id_aula'");
+        foreach ($dados_aula as $b) {
+        ?>
+            <h1>Edit Estudante nia materia</h1>
 
             <form action="aula.php" method="post">
+                <input type="text" name="id_aula" class="id_aula" value="<?= $b['id_aula'] ?>" hidden>
                 <ul>
                     <li>
                         <label for="naran_estudante">Naran Estudante:</label>
@@ -101,9 +134,14 @@ if (isset($_POST['edit_aula'])) {
                             <option value="" selected hidden>- Hili estudante -</option>
                             <?php
                             $estudante = sel_table('t_estudante order by naran_estudante');
-                            foreach ($estudante as $a) { ?>
-                                <option value="<?= $a['id_estudante']; ?>"><?= $a['naran_estudante']; ?></option>
-                            <?php } ?>
+                            foreach ($estudante as $a) {
+
+                                if ($a['id_estudante'] == $b['id_estudante']) {
+                                    echo "<option value=" . $a['id_estudante'] . " selected>" . $a['naran_estudante'] . "</option>";
+                                } else {
+                                    echo "<option value=" . $a['id_estudante'] . ">" . $a['naran_estudante'] . "</option>";
+                                }
+                            } ?>
                         </select>
                     </li>
                     <li>
@@ -113,74 +151,25 @@ if (isset($_POST['edit_aula'])) {
                             <?php
                             $materia = sel_table('t_materia order by materia');
                             foreach ($materia as $a) {
-                            ?>
-                                <option value="<?= $a['id_materia']; ?>"><?= $a['materia']; ?></option>
-                            <?php } ?>
+                                if ($a['id_materia'] == $b['id_materia']) {
+                                    echo "<option value=" . $a['id_materia'] . " selected>" . $a['materia'] . "</option>";
+                                } else {
+                                    echo "<option value=" . $a['id_materia'] . ">" . $a['materia'] . "</option>";
+                                }
+                            } ?>
                         </select>
                     </li>
                     <li>
-                        <button type="submit" name="insert">save</button>
+                        <button type="submit" name="edit_aula">save</button>
                         <button><a href="aula.php">Kansela</a></button>
                     </li>
                 </ul>
 
             </form>
 
-            <?php }
-        if (isset($_GET['edit']) && !empty($_GET['edit']) && $admin == 'admin') {
+    <?php }
+    } ?>
 
-            $id_aula = $_GET['edit'];
-            $dados_aula = sel_table("t_aula where id_aula='$id_aula'");
-            foreach ($dados_aula as $b) {
-            ?>
-                <h1>Edit Estudante nia materia</h1>
+</div>
 
-                <form action="aula.php" method="post">
-                    <input type="text" name="id_aula" class="id_aula" value="<?= $b['id_aula'] ?>" hidden>
-                    <ul>
-                        <li>
-                            <label for="naran_estudante">Naran Estudante:</label>
-                            <select name="id_estudante" id="naran_estudante">
-                                <option value="" selected hidden>- Hili estudante -</option>
-                                <?php
-                                $estudante = sel_table('t_estudante order by naran_estudante');
-                                foreach ($estudante as $a) {
-
-                                    if ($a['id_estudante'] == $b['id_estudante']) {
-                                        echo "<option value=" . $a['id_estudante'] . " selected>" . $a['naran_estudante'] . "</option>";
-                                    } else {
-                                        echo "<option value=" . $a['id_estudante'] . ">" . $a['naran_estudante'] . "</option>";
-                                    }
-                                } ?>
-                            </select>
-                        </li>
-                        <li>
-                            <label for="id_materia">Materia:</label>
-                            <select name="id_materia" id="id_materia">
-                                <option value="" selected hidden>- Hili Materia -</option>
-                                <?php
-                                $materia = sel_table('t_materia order by materia');
-                                foreach ($materia as $a) {
-                                    if ($a['id_materia'] == $b['id_materia']) {
-                                        echo "<option value=" . $a['id_materia'] . " selected>" . $a['materia'] . "</option>";
-                                    } else {
-                                        echo "<option value=" . $a['id_materia'] . ">" . $a['materia'] . "</option>";
-                                    }
-                                } ?>
-                            </select>
-                        </li>
-                        <li>
-                            <button type="submit" name="edit_aula">save</button>
-                            <button><a href="aula.php">Kansela</a></button>
-                        </li>
-                    </ul>
-
-                </form>
-
-        <?php }
-        } ?>
-
-    </div>
-</body>
-
-</html>
+<?php include('footer.php'); ?>
