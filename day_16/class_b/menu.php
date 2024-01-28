@@ -11,6 +11,9 @@ $url = basename($_SERVER['REQUEST_URI']);
     <li class="nav-item">
         <a href="materia.php" class="nav-link <?= $url == 'materia.php' ? 'active' : ''; ?>">Materia</a>
     </li>
+    <li class="nav-item">
+        <a href="utilijador.php" class="nav-link <?= $url == 'utilijador.php' ? 'active' : ''; ?>">Utilijador</a>
+    </li>
     <li class="nav-item dropdown ms-auto d-flex">
         <a class="nav-link dropdown-toggle <?= $url == 'profile.php' ? 'active' : ''; ?>" data-bs-toggle="dropdown" href="#">
             Profile
