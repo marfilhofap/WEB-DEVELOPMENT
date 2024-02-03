@@ -4,7 +4,7 @@ $url = basename($_SERVER['REQUEST_URI']);
 
 <div class="bg-primary p-4 text-light text-center">
     <h1>Sistema Informasaun Eskola SENOFA</h1>
-    <p>Bemvindo <?= $_SESSION['naran_estudante'] ?></p>
+    <p>Bemvindo <?= $_SESSION['naran_estudante'] ?> (<?= $_SESSION['user_level']; ?>)</p>
 </div>
 
 <ul class="nav nav-pills m-2">
