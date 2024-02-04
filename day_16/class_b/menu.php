@@ -25,5 +25,3 @@ $url = basename($_SERVER['REQUEST_URI']);
     </li>
 </ul>
 
-<!-- Bootstrap JavaScript -->
-<script src="bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>

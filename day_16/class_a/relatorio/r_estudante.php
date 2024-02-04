@@ -5,34 +5,36 @@ include('../koneksaun.php');
 $kon = koneksaun_1();
 $t_estudante = pg_query($kon, 'SELECT * FROM t_estudante');
 $dados = pg_fetch_all($t_estudante);
+$loron = date('d-m-Y');
 
 class PDF extends TCPDF
 {
+        private $headerControl = false;
+
+
         // Override the Header() method
         public function Header()
         {
-                $this->SetY(18);
+                if (!$this->headerControl) {
+                        $this->SetY(18);
 
-                $this->SetFont('helvetica', 'B', 18);
-                $this->Cell(0, 20, 'Lista Estudante CANOSSA', 0, false, 'C', 0, '', 0, false, 'M', 'M');
+                        $this->SetFont('helvetica', 'B', 18);
+                        $this->Cell(0, 20, 'Lista Estudante CANOSSA', 0, false, 'C', 0, '', 0, false, 'M', 'M');
 
-                $imageFile = 'tcpdf/images/fdsl.jpg';
-                $this->Image($imageFile, 10, 5, 20);
+                        $imageFile = 'tcpdf/images/fdsl.jpg';
+                        $this->Image($imageFile, 10, 5, 20);
 
-                $imageFile = 'tcpdf/images/fdsl.jpg';
-                $this->Image($imageFile, 180, 5, 20);
+                        $imageFile = 'tcpdf/images/fdsl.jpg';
+                        $this->Image($imageFile, 180, 5, 20);
+
+                        $this->headerControl = true;
+                }
         }
 
-        // Override the Footer() method
         public function Footer()
         {
-                // Position at 15 mm from the bottom
                 $this->SetY(-15);
-
-                // Set font
                 $this->SetFont('helvetica', 'I', 8);
-
-                // Page number in the middle of the footer
                 $this->Cell(0, 10, 'Pajina ' . $this->getAliasNumPage() . ' husi ' . $this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
         }
 }
@@ -49,9 +51,7 @@ $pdf->SetSubject('Dados Estudante hotu nebe foti husi Sistema Informasaun Canoss
 $pdf->SetFont('helvetica', '', 12);
 
 $pdf->AddPage();
-
-// Adjust the Y-coordinate to make sure the table starts below the header
-$pdf->SetY($pdf->GetY() + 22); // Adjust the value accordingly
+$pdf->SetY($pdf->GetY() + 22);
 
 $html = '<table border="1" style="border-collapse: collapse; width: 100%; padding: 10px;">
             <tr style="background-color:#4d94ff;color:#fff">
@@ -75,9 +75,45 @@ foreach ($dados as $key => $value) {
 
 $html .= '</table>';
 
+$html .= '<br><br><br>';
+
+$html .= '<table style="text-align: center;">
+<tr>
+        <td></td>
+        <td>Dili, ' . $loron . '</td>
+        <td></td>
+</tr>
+<tr>
+        <td></td>
+        <td></td>
+        <td></td>
+</tr>
+<tr>
+        <td></td>
+        <td></td>
+        <td></td>
+</tr>
+<tr>
+        <td></td>
+        <td>Marfilho Fidel Alvares Pereira</td>
+        <td></td>
+</tr>
+<tr>
+        <td></td>
+        <td><b>(Diretor da Escola CANOSSA)</b></td>
+        <td></td>
+</tr>
+
+</table>';
+
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->Output('example.pdf', 'I');
+
+// $qrcode = 'Koko';
+// $pdf->write2DBarcode($qrcode, 'QRCODE,H', 17, 53, 20, 20, $style, 'N');
+
+
+$pdf->Output('Relatorio_Estudante_' . $loron, 'I');
 
 // Exit the script
 exit;

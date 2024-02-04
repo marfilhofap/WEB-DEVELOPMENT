@@ -1,5 +1,6 @@
 <?php
-function koneksaun(){
+function koneksaun()
+{
     // Define parametro koneksaun
     $dsn = 'pgsql:host=localhost;dbname=db_web_development';
     $username = 'postgres';
@@ -11,11 +12,15 @@ function koneksaun(){
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         return $pdo;
-
     } catch (PDOException $e) {
-        echo 'Koneksaun Error'.$e->getMessage();
+        echo 'Koneksaun Error' . $e->getMessage();
         return null;
     }
 }
 
-?>
+function koneksaun_1()
+{
+    $con = pg_connect("host=localhost port=5432 dbname=db_web_development user=postgres password=admin")
+        or die("Koneksaun ladiak");
+    return $con;
+}

@@ -5,46 +5,44 @@ $id_estudante = $_SESSION['id_estudante'];
 
 $dados = sel_table("t_estudante WHERE id_estudante ='$id_estudante'");
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
-    <link rel="stylesheet" href="bootstrap-5.0.2-dist/css/bootstrap.min.css">
-</head>
+<?php include('header.php'); ?>
 
-<body>
+<div class="container">
 
-    <div class="container">
+    <?php include('menu.php'); ?>
 
-        <?php include('menu.php'); ?>
+    <h3 class="bg-info text-white p-4 d-flex">
+        <div>
+            My Profile
+        </div>
+        <div class="ms-auto">
+            <a href="relatorio/kartaun.php?id=<?= $id_estudante; ?>" target="_blank" class="btn btn-light">Kartaun</a>
+        </div>
+    </h3>
 
-        <h3 class="bg-success text-white p-4">My Profile</h3>
+    <?php foreach ($dados as $a) : ?>
 
-        <?php foreach ($dados as $a) : ?>
+        <div class="row">
+            <div class="col-md-4">Naran Kompletu</div>
+            <div class="col-md-8">: <?= $a['naran_estudante']; ?></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">Sexo</div>
+            <div class="col-md-8">: <?= $a['sexo']; ?></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">Emis</div>
+            <div class="col-md-8">: <?= $a['emis']; ?></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">Data Moris</div>
+            <div class="col-md-8">: <?= $a['data_moris']; ?></div>
+        </div>
 
-            <div class="row">
-                <div class="col-md-4">Naran Kompletu</div>
-                <div class="col-md-8">: <?= $a['naran_estudante']; ?></div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">Sexo</div>
-                <div class="col-md-8">: <?= $a['sexo']; ?></div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">Emis</div>
-                <div class="col-md-8">: <?= $a['emis']; ?></div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">Data Moris</div>
-                <div class="col-md-8">: <?= $a['data_moris']; ?></div>
-            </div>
+    <?php endforeach ?>
 
-        <?php endforeach ?>
-
-    </div>
+</div>
 
 </body>
 

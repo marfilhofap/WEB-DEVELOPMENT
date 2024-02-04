@@ -18,6 +18,9 @@ $dados = sel_table("t_estudante where id_estudante = '$id_estudante' order by na
         <div>
             <h3>Profile</h3>
         </div>
+        <div class="ms-auto">
+            <a class="btn btn-success" href="relatorio/kartaun_estudante.php?id=<?= $id_estudante; ?>" target="_blank">Kartaun Estudante</a>
+        </div>
     </div>
 
     <div class="row">

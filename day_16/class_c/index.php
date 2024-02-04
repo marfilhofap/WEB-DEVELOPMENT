@@ -47,12 +47,12 @@ $dados = sel_table('t_estudante order by naran_estudante ASC ');
             </div>
             <?php if ($admin == 'admin') : ?>
                 <div class="ms-auto">
-                    <a class="btn btn-success" href="#">Relatorio</a>
+                    <a class="btn btn-success" href="relatorio/r_estudante.php" target="_blank">Relatorio</a>
                     <a class="btn btn-primary" href="index.php?insert=true">Insert</a>
                 </div>
             <?php endif; ?>
         </div>
-
+ 
 
         <table id="dt_estudante" class="table table-hover">
             <thead>
